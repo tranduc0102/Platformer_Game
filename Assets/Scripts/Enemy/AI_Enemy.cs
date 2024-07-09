@@ -25,6 +25,11 @@ public class AI_Enemy : MonoBehaviour
             anim.SetBool("CanRun",value);
         }
     }
+
+    public void AfterAttack()
+    {
+        anim.SetBool("Attack",false);
+    }
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -65,7 +70,7 @@ public class AI_Enemy : MonoBehaviour
         }
     }
     
-    private void OnTriggerExit2D(Collider2D other)
+    private  void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Ground"))
         {
