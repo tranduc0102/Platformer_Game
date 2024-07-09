@@ -17,6 +17,9 @@ public class CheckGround : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        isGround = false;
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isGround = false;
+        }
     }
 }

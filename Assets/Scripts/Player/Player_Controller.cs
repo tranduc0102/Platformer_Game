@@ -7,6 +7,7 @@ public class Player_Controller : MonoBehaviour
 {
     [SerializeField]private Rigidbody2D rb;
     [SerializeField]private Animator anim;
+    public bool doubleJump = false;
     public float forceJump;
     public float speed;
 
@@ -45,11 +46,28 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
+    private bool isJump = false;
+
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.W) && CheckGround.isGround)
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            rb.velocity = new Vector2(rb.velocity.x,forceJump);
+            if (CheckGround.isGround)
+            {
+                rb.velocity = new Vector2(rb.velocity.x,forceJump);
+                isJump = false;
+            }
+            if (!CheckGround.isGround && !isJump)
+            {
+                doubleJump = true;
+            }
+            if (doubleJump)
+            {
+                rb.velocity = new Vector2(rb.velocity.x,forceJump);
+                anim.SetBool("DoubleJump",true);
+                doubleJump = false;
+                isJump = true;
+            }
         }
         if (!CheckGround.isGround)
         {
@@ -61,6 +79,8 @@ public class Player_Controller : MonoBehaviour
         {
             speed = 5f;
             anim.SetBool("Jump",false);
+            anim.SetBool("DoubleJump",false);
+            isJump = false;
         }
     }
 
