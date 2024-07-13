@@ -49,7 +49,7 @@ public class JumpDamage : MonoBehaviour
         if (lifes <= 0)
         {
             anim.SetBool("Dead", true);
-            gameObject.layer = 9;
+            gameObject.layer = 1;
 
             // Tắt tất cả các object con
             foreach (Transform child in transform)

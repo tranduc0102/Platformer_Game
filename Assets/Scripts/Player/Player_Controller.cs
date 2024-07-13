@@ -54,7 +54,7 @@ public class Player_Controller : MonoBehaviour
         {
             if (CheckGround.isGround)
             {
-                rb.velocity = new Vector2(rb.velocity.x,forceJump);
+                rb.velocity = Vector2.up*forceJump;
                 isJump = false;
             }
             if (!CheckGround.isGround && !isJump)
@@ -63,7 +63,7 @@ public class Player_Controller : MonoBehaviour
             }
             if (doubleJump)
             {
-                rb.velocity = new Vector2(rb.velocity.x,forceJump);
+                rb.velocity = Vector2.up*forceJump;
                 anim.SetBool("DoubleJump",true);
                 doubleJump = false;
                 isJump = true;

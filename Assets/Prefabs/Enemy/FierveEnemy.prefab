@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3125416348100224727}
   m_Layer: 8
   m_Name: body
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0065446496, y: -0.061930895}
+  m_Offset: {x: 0.0065446496, y: -0.047302462}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1782893, y: 0.098318964}
+  m_Size: {x: 0.1782893, y: 0.12757583}
   m_EdgeRadius: 0
 --- !u!114 &3125416348100224727
 MonoBehaviour:
@@ -81,7 +81,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3192118142467934015}
   - component: {fileID: 8587084581312314123}
-  m_Layer: 7
+  m_Layer: 1
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,7 +418,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 4881441065489958032}
-  destroyObject: {fileID: 4881441065489958045}
   jumpForce: 3
   lifes: 3
   time: 0

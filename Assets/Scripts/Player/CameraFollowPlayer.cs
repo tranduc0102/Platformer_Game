@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,11 +11,17 @@ public class CameraFollowPlayer : MonoBehaviour
 
     // Limitations for camera movement
     [SerializeField] private Vector2 minLimits;         
-    [SerializeField] private Vector2 maxLimits;         
+    [SerializeField] private Vector2 maxLimits;
+
+    private void Awake()
+    {
+        playerTransform = GameObject.Find("Player").transform;
+    }
 
     private void Start()
     {
-        offset = transform.position - playerTransform.position;
+        Vector3 dis = new Vector2(0, -2);
+        offset = transform.position - playerTransform.position+dis;
     }
 
     private void FixedUpdate()
