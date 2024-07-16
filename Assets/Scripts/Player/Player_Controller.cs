@@ -7,6 +7,7 @@ public class Player_Controller : MonoBehaviour
 {
     [SerializeField]private Rigidbody2D rb;
     [SerializeField]private Animator anim;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     public bool doubleJump = false;
     public float forceJump;
     public float speed;
@@ -15,6 +16,7 @@ public class Player_Controller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -54,6 +56,7 @@ public class Player_Controller : MonoBehaviour
         {
             if (CheckGround.isGround)
             {
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.jump);
                 rb.velocity = Vector2.up*forceJump;
                 isJump = false;
             }
@@ -63,6 +66,7 @@ public class Player_Controller : MonoBehaviour
             }
             if (doubleJump)
             {
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.jump);
                 rb.velocity = Vector2.up*forceJump;
                 anim.SetBool("DoubleJump",true);
                 doubleJump = false;
@@ -86,10 +90,9 @@ public class Player_Controller : MonoBehaviour
 
     private void Flip(float toward)
     {
-        float x = transform.localScale.x;
-        if ((toward > 0 && x < 0) || (toward < 0 && x > 0))
+        if ((toward > 0 && spriteRenderer.flipX) || (toward < 0 && !spriteRenderer.flipX))
         {
-            transform.localScale = new Vector2(-x, transform.localScale.y);
+            spriteRenderer.flipX = !spriteRenderer.flipX;
         }
     }
 }

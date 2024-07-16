@@ -32,6 +32,7 @@ public class JumpDamage : MonoBehaviour
                 other.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.up*jumpForce;
                 LosseLifeAndHit();
                 CheckLife();
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.hitEnemy);
                 time = 0.25f;
                 check = true;
             }

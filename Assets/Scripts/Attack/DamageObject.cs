@@ -11,8 +11,17 @@ public class DamageObject : MonoBehaviour
       if (other.gameObject.CompareTag("Player"))
       {
          other.gameObject.GetComponent<Animator>().SetTrigger("Hit");
-         Debug.Log("thang nay da bi mat mau");
-         other.gameObject.GetComponent<PlayerRespawn>().ReturnCheckPoint();
+         GameManager.Instance.livePlayer--;
+         if (GameManager.Instance.livePlayer > 0)
+         {
+            other.gameObject.GetComponent<PlayerRespawn>().ReturnCheckPoint();
+         }
+         else
+         {
+            other.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            other.gameObject.tag = "Enemy";
+            other.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.up*6f;
+         }
       }
    }
 }

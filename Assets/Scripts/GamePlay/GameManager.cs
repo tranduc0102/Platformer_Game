@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public int livePlayer = 3;
     private int enemyCount;
     public GameObject loadNextLevel;
     public int idAnimator = 0;
@@ -27,28 +28,29 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpdateEnemyCount();
+        // UpdateEnemyCount();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        UpdateEnemyCount();
-        if (enemyCount == 0)
-        {
-            loadNextLevel.SetActive(true);
-            Invoke("loadNext",1.3f);
-        }
+        // UpdateEnemyCount();
+        // if (enemyCount == 0)
+        // {
+        //     loadNextLevel.SetActive(true);
+        //     Invoke("loadNext",1.3f);
+        // }
     }
 
-    private void UpdateEnemyCount()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        enemyCount = enemies.Length;
-    }
-
-    private void loadNext()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+    // private void UpdateEnemyCount()
+    // {
+    //     GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    //     enemyCount = enemies.Length;
+    // }
+    //
+    // private void loadNext()
+    // {
+    //     livePlayer = 3;
+    //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    // }
 }

@@ -6,7 +6,7 @@ public class Enemy_Start : MonoBehaviour
     [SerializeField] private AI_Enemy _enemy;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject obj;
-    public float attackForce = 7f;
+    public float attackForce = 8f;
     private bool canAttack = false;
 
     private void Awake()
@@ -41,15 +41,6 @@ public class Enemy_Start : MonoBehaviour
         float direction = transform.localScale.x > 0 ? -1 : 1;
         _enemy.speed = direction * attackForce;
         rb.velocity = new Vector2(_enemy.speed+direction, rb.velocity.y);
-        StartCoroutine(delay());
     }
-
-    IEnumerator delay()
-    {
-        yield return new WaitForSeconds(0.5f);
-        _enemy.CanRun = true;
-        obj.SetActive(false);
-        yield return new WaitForSeconds(1f);
-        obj.SetActive(true);
-    }
+    
 }

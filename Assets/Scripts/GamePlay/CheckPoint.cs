@@ -17,6 +17,7 @@ public class CheckPoint : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             _animator.SetBool("On",true);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.checkPoint);
             other.gameObject.GetComponent<PlayerRespawn>().PointCheckPoint(transform.position.x,transform.position.y);
         }
     }
