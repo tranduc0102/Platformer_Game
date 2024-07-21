@@ -15,7 +15,10 @@ public class CameraFollowPlayer : MonoBehaviour
 
     private void Awake()
     {
-        playerTransform = GameObject.Find("Player").transform;
+        if (playerTransform == null)
+        {
+            playerTransform = GameObject.Find("Player").transform;   
+        }
     }
 
     private void Start()
@@ -24,7 +27,7 @@ public class CameraFollowPlayer : MonoBehaviour
         offset = transform.position - playerTransform.position+dis;
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         Follow();
     }

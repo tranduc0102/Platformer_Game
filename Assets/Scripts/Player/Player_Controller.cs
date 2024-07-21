@@ -7,8 +7,10 @@ public class Player_Controller : MonoBehaviour
 {
     [SerializeField]private Rigidbody2D rb;
     [SerializeField]private Animator anim;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    public bool doubleJump = false;
+    [SerializeField]private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject particleLeft; 
+    [SerializeField] private GameObject particleRight; 
+    private bool doubleJump = false;
     public float forceJump;
     public float speed;
 
@@ -21,8 +23,11 @@ public class Player_Controller : MonoBehaviour
 
     private void Update()
     {
-        Jump();
-        Running();
+        if (GameManager.Instance.livePlayer > 0)
+        {
+            Jump();
+            Running();   
+        }
     }
 
     private void Running()
@@ -36,15 +41,29 @@ public class Player_Controller : MonoBehaviour
             {
                 anim.SetBool("Jump",true);
                 anim.SetBool("Run",false);
+                particleLeft.SetActive(false);
+                particleRight.SetActive(false);
             }
             else
             {
                 anim.SetBool("Run",true);
+                if (input < 0)
+                {
+                    particleLeft.SetActive(false);
+                    particleRight.SetActive(true);
+                }
+                else if (input > 0)
+                {
+                    particleLeft.SetActive(true);
+                    particleRight.SetActive(false);
+                }
             }
         }
         else
         {
             anim.SetBool("Run",false);
+            particleLeft.SetActive(false);
+            particleRight.SetActive(false);
         }
     }
 

@@ -6,6 +6,7 @@ using UnityEngine;
 public class CheckPoint : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
+    private bool check = false;
 
     private void Awake()
     {
@@ -17,7 +18,11 @@ public class CheckPoint : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             _animator.SetBool("On",true);
-            AudioManager.Instance.PlaySFX(AudioManager.Instance.checkPoint);
+            if (!check)
+            {
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.checkPoint);
+                check = true;
+            }
             other.gameObject.GetComponent<PlayerRespawn>().PointCheckPoint(transform.position.x,transform.position.y);
         }
     }

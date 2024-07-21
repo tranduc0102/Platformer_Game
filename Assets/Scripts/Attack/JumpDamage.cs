@@ -15,12 +15,7 @@ public class JumpDamage : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(check)
-            time -= Time.deltaTime;
-        if (time <= 0)
-        {
-            check = false;
-        }
+       
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -31,28 +26,25 @@ public class JumpDamage : MonoBehaviour
             {
                 other.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.up*jumpForce;
                 LosseLifeAndHit();
-                CheckLife();
                 AudioManager.Instance.PlaySFX(AudioManager.Instance.hitEnemy);
-                time = 0.25f;
-                check = true;
+                CheckLife();
             }
         }
     }
 
     public void LosseLifeAndHit()
     {
-        lifes--;
         anim.SetTrigger("Hit");
+        lifes--;
     }
 
     public void CheckLife()
     {
-        if (lifes <= 0)
+        if (lifes == 0)
         {
             anim.SetBool("Dead", true);
             gameObject.layer = 1;
-
-            // Tắt tất cả các object con
+            
             foreach (Transform child in transform)
             {
                 if(child.name != "Ground")

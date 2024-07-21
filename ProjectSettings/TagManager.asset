@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Ground
   - Enemy
-  - Attack
+  - Boat
   layers:
   - Default
   - TransparentFX

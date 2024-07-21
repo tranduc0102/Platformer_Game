@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 4881441065489958032}
-  jumpForce: 5
+  jumpForce: 3
   lifes: 1
   time: 0
 --- !u!1 &4881441065689180729

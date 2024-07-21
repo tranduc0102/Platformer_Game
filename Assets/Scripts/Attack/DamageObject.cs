@@ -5,16 +5,20 @@ using UnityEngine;
 
 public class DamageObject : MonoBehaviour
 {
+   public string nameObject = "Player";
    public Transform enemy;
    private void OnTriggerEnter2D(Collider2D other)
    {
-      if (other.gameObject.CompareTag("Player"))
+      if (other.gameObject.CompareTag(nameObject))
       {
          other.gameObject.GetComponent<Animator>().SetTrigger("Hit");
          GameManager.Instance.livePlayer--;
          if (GameManager.Instance.livePlayer > 0)
          {
-            other.gameObject.GetComponent<PlayerRespawn>().ReturnCheckPoint();
+            if (other.gameObject.GetComponent<PlayerRespawn>() != null)
+            {
+               other.gameObject.GetComponent<PlayerRespawn>().ReturnCheckPoint();  
+            }
          }
          else
          {
