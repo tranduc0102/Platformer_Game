@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class NextLevel : MonoBehaviour
 {
    public GameObject loadNextLevel;
+   public string namePlayer = "Player";
    private void Start()
    {
       Transform camera = GameObject.Find("Main Camera").transform;
@@ -14,7 +15,7 @@ public class NextLevel : MonoBehaviour
    }
    private void OnTriggerEnter2D(Collider2D other)
    {
-      if (other.CompareTag("Player"))
+      if (other.CompareTag(namePlayer))
       {
          loadNextLevel.SetActive(true);
          other.gameObject.GetComponent<Animator>().Play("teleport 1");
