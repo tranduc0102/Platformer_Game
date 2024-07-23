@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    [SerializeReference] private Animator anim;
     private Vector2 target;
     private float moveSpeed;
     private float maxY;
     private float distanceToTargetToDestroyBomb = 1f;
 
-    private AnimationCurve _axisCorrectionAnimationCurve;
-    private AnimationCurve _animationCurve;
-
     private Vector3 trajectoryStartPoint;
     private float totalDistance;
     private float timeToTarget;
     private float elapsedTime;
+    private bool hasReachTarget = false;
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
         trajectoryStartPoint = transform.position;
         totalDistance = Vector3.Distance(trajectoryStartPoint, target);
         timeToTarget = totalDistance / moveSpeed;
@@ -26,10 +26,15 @@ public class Bomb : MonoBehaviour
 
     private void Update()
     {
-        if (target != null)
+        if (target != null && !hasReachTarget)
         {
             elapsedTime += Time.deltaTime;
             UpdateBombPosition();
+        }
+        if (Vector2.Distance(transform.position, target) < distanceToTargetToDestroyBomb)
+        {
+            hasReachTarget = true;
+            anim.Play("Explotion");
         }
     }
 
@@ -41,23 +46,17 @@ public class Bomb : MonoBehaviour
         this.maxY = Mathf.Abs(xDistanceTarget * maxY);
     }
 
-    public void InitAnimationCurves(AnimationCurve animationCurve, AnimationCurve axisCorrectionAnimationCurve)
-    {
-        this._animationCurve = animationCurve;
-        this._axisCorrectionAnimationCurve = axisCorrectionAnimationCurve;
-    }
-
     private void UpdateBombPosition()
     {
         float progress = elapsedTime / timeToTarget;
-        Vector3 newPosition = Vector3.Lerp(trajectoryStartPoint, target, progress);
+        Vector2 newPosition = Vector2.Lerp(trajectoryStartPoint, target, progress);
 
         // Apply parabolic height
-        float height = maxY * (1 - (progress * 2 - 1) * (progress * 2 - 1));
+        float height = maxY * (1 - Mathf.Pow((progress * 2 - 1), 2));
         newPosition.y += height;
 
         // Ensure newPosition is valid
-        if (!float.IsNaN(newPosition.x) && !float.IsNaN(newPosition.y) && !float.IsNaN(newPosition.z))
+        if (!float.IsNaN(newPosition.x) && !float.IsNaN(newPosition.y))
         {
             transform.position = newPosition;
         }
@@ -65,5 +64,10 @@ public class Bomb : MonoBehaviour
         {
             Debug.LogError($"Invalid position calculated: newPosition = {newPosition}");
         }
+    }
+
+    public void DestroyObject()
+    {
+        Destroy(gameObject);
     }
 }

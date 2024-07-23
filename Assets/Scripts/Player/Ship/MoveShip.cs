@@ -23,9 +23,9 @@ public class MoveShip : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, -1.5f, transform.position.z);
             }
-            else if (transform.position.y < -7f)
+            else if (transform.position.y < -10f)
             {
-                transform.position = new Vector3(transform.position.x, -7f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, -10f, transform.position.z);
             } 
             transform.Translate(new Vector2(0f, 5f * inputVertical * Time.deltaTime));   
         }
