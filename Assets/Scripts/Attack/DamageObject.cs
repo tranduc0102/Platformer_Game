@@ -5,8 +5,14 @@ using UnityEngine;
 
 public class DamageObject : MonoBehaviour
 {
+   [SerializeField] private CameraFollowPlayer _camFollow;
    public string nameObject = "Player";
    public Transform enemy;
+
+   private void Awake()
+   {
+         _camFollow = Camera.main.GetComponent<CameraFollowPlayer>();
+   }
 
    private void OnTriggerEnter2D(Collider2D other)
    {
@@ -18,7 +24,7 @@ public class DamageObject : MonoBehaviour
          {
             if (other.gameObject.GetComponent<PlayerRespawn>() != null)
             {
-               other.gameObject.GetComponent<PlayerRespawn>().ReturnCheckPoint();  
+               other.gameObject.GetComponent<PlayerRespawn>().ReturnCheckPoint();
             }
          }
          else

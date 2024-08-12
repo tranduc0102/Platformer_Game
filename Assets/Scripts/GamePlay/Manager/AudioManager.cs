@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip checkPoint;
     public AudioClip coin;
     public AudioClip star;
+    public AudioClip bomb;
 
     private void Awake()
     {

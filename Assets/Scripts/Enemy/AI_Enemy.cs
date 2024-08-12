@@ -11,9 +11,6 @@ public class AI_Enemy : MonoBehaviour
     private int playerCollisionCount = 0;
     public float speed;
     public bool flip = false;
-    
-    
-    
     public bool CanRun
     {
         get
@@ -24,11 +21,6 @@ public class AI_Enemy : MonoBehaviour
         {
             anim.SetBool("CanRun",value);
         }
-    }
-
-    public void AfterAttack()
-    {
-        anim.SetBool("Attack",false);
     }
     private void Awake()
     {
@@ -47,6 +39,11 @@ public class AI_Enemy : MonoBehaviour
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
             Flip();
+        }
+        else
+        {
+            // Dừng lại hoàn toàn khi không thể chạy
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
 

@@ -11,6 +11,11 @@ public class PlayerRespawn : MonoBehaviour
     {
         PlayerPrefs.SetFloat("saveX",transform.position.x);
         PlayerPrefs.SetFloat("saveY",transform.position.y);
+        
+        PlayerPrefs.SetFloat("maxCamX",0f);
+        PlayerPrefs.SetFloat("maxCamY",0f);
+        PlayerPrefs.SetFloat("minCamX",0f);
+        PlayerPrefs.SetFloat("minCamY",0f);
     }
 
     private void Start()
@@ -28,10 +33,7 @@ public class PlayerRespawn : MonoBehaviour
     }
     public void PointCheckPoint(float x,float y)
     {
-        if (x > PlayerPrefs.GetFloat("saveX"))
-        {
-            PlayerPrefs.SetFloat("saveX",x);
-            PlayerPrefs.SetFloat("saveY",y);
-        }
+         PlayerPrefs.SetFloat("saveX",x);
+         PlayerPrefs.SetFloat("saveY",y);
     }
 }

@@ -15,6 +15,8 @@ public class Bomb : MonoBehaviour
     private float elapsedTime;
     private bool hasReachTarget = false;
 
+    public AudioManager audio;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -26,6 +28,10 @@ public class Bomb : MonoBehaviour
 
     private void Update()
     {
+        if (audio == null)
+        {
+            audio = GameObject.Find("GamePlay").GetComponent<AudioManager>();
+        }
         if (target != null && !hasReachTarget)
         {
             elapsedTime += Time.deltaTime;
@@ -64,6 +70,11 @@ public class Bomb : MonoBehaviour
         {
             Debug.LogError($"Invalid position calculated: newPosition = {newPosition}");
         }
+    }
+
+    public void MusicBomb()
+    {
+        audio.PlaySFX(audio.bomb);
     }
 
     public void DestroyObject()

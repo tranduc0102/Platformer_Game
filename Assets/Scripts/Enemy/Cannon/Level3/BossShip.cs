@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class BossShip : MonoBehaviour
 {
     public Transform playerTransform;
     public GameObject nextLevel;

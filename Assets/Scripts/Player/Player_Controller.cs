@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
-    [SerializeField]private Rigidbody2D rb;
-    [SerializeField]private Animator anim;
-    [SerializeField]private SpriteRenderer spriteRenderer;
-    [SerializeField] private GameObject particleLeft; 
-    [SerializeField] private GameObject particleRight; 
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Animator anim;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject particleLeft;
+    [SerializeField] private GameObject particleRight;
     private bool doubleJump = false;
     public float forceJump;
     public float speed;
+
+    private bool isGravityInverted = false; // Biến để kiểm tra trạng thái trọng lực
 
     private void Awake()
     {
@@ -24,29 +26,43 @@ public class Player_Controller : MonoBehaviour
     private void Update()
     {
         if (GameManager.Instance.livePlayer > 0)
-        {
-            Jump();
-            Running();   
+        {   Jump();
+            Running();
+            transGravity();
         }
     }
 
     private void Running()
     {
-        float input = Input.GetAxisRaw("Horizontal");
-        if (input != 0)
+        float input = 0;
+        if (Input.GetKey("a") || Input.GetKey("left"))
         {
-            transform.Translate( new Vector2(speed*input*Time.deltaTime,0f));
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
+            input = -1;
+        }
+        else if(Input.GetKey("d") || Input.GetKey("right"))
+        {
+            rb.velocity = new Vector2(speed, rb.velocity.y);
+            input = 1;
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            input = 0;
+        }
+        if(input!=0){
             Flip(input);
+
             if (!CheckGround.isGround)
             {
-                anim.SetBool("Jump",true);
-                anim.SetBool("Run",false);
+                anim.SetBool("Jump", true);
+                anim.SetBool("Run", false);
                 particleLeft.SetActive(false);
                 particleRight.SetActive(false);
             }
             else
             {
-                anim.SetBool("Run",true);
+                anim.SetBool("Run", true);
                 if (input < 0)
                 {
                     particleLeft.SetActive(false);
@@ -59,12 +75,14 @@ public class Player_Controller : MonoBehaviour
                 }
             }
         }
+
         else
         {
-            anim.SetBool("Run",false);
+            anim.SetBool("Run", false);
             particleLeft.SetActive(false);
-            particleRight.SetActive(false);
+            particleRight.SetActive(false); 
         }
+
     }
 
     private bool isJump = false;
@@ -76,18 +94,19 @@ public class Player_Controller : MonoBehaviour
             if (CheckGround.isGround)
             {
                 AudioManager.Instance.PlaySFX(AudioManager.Instance.jump);
-                rb.velocity = Vector2.up*forceJump;
+                rb.velocity = Vector2.up * forceJump * Mathf.Sign(rb.gravityScale);
                 isJump = false;
             }
-            if (!CheckGround.isGround && !isJump)
+            else if (!CheckGround.isGround && !isJump)
             {
                 doubleJump = true;
             }
+
             if (doubleJump)
             {
                 AudioManager.Instance.PlaySFX(AudioManager.Instance.jump);
-                rb.velocity = Vector2.up*forceJump;
-                anim.SetBool("DoubleJump",true);
+                rb.velocity = Vector2.up * forceJump * Mathf.Sign(rb.gravityScale);
+                anim.SetBool("DoubleJump", true);
                 doubleJump = false;
                 isJump = true;
             }
@@ -95,14 +114,13 @@ public class Player_Controller : MonoBehaviour
         if (!CheckGround.isGround)
         {
             speed = 2f;
-            anim.SetBool("Jump",true);
+            anim.SetBool("Jump", true);
         }
-
-        if (CheckGround.isGround)
+        else
         {
             speed = 5f;
-            anim.SetBool("Jump",false);
-            anim.SetBool("DoubleJump",false);
+            anim.SetBool("Jump", false);
+            anim.SetBool("DoubleJump", false);
             isJump = false;
         }
     }
@@ -113,5 +131,33 @@ public class Player_Controller : MonoBehaviour
         {
             spriteRenderer.flipX = !spriteRenderer.flipX;
         }
+    }
+
+    private void transGravity()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            rb.gravityScale *= -1;
+            isGravityInverted = !isGravityInverted; // Cập nhật trạng thái trọng lực
+            Rotation();
+        }
+    }
+
+    private bool trans = false;
+
+    private void Rotation()
+    {
+        if (trans == false)
+        {
+            transform.eulerAngles = new Vector3(0, 0, 180);
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            transform.eulerAngles = Vector3.zero;
+            spriteRenderer.flipX = false;
+        }
+
+        trans = !trans;
     }
 }
