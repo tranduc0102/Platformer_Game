@@ -34,16 +34,16 @@ public class AI_Enemy : MonoBehaviour,IsEnemy
         Attack();
     }
 
-    public void Running()
+    public virtual void Running()
     {
-        Dead();
-        if (CanRun)
+        
+        if (CanRun && !Dead())
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
             CheckGroundAndFlip();
             Flip();
         }
-        else
+        else if(!CanRun)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
@@ -75,16 +75,18 @@ public class AI_Enemy : MonoBehaviour,IsEnemy
         }
     }
 
-    public void Dead()
+    public virtual bool Dead()
     {
         if (hitDamage.lifes <= 0)
         {
             CanRun = false;
+            return true;
         }
-        return;
+
+        return false;
     }
 
-    private void Flip()
+    public void Flip()
     {
         if (flip)
         {

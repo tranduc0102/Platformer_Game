@@ -52,7 +52,7 @@ public class RockEnemy : MonoBehaviour
         Vector2 direction = ((Vector2)target - rb.position).normalized;
         Vector2 newPosition = Vector2.MoveTowards(rb.position, target, baseSpeed * Time.deltaTime);
 
-        if (!isSpeedBoosted && Vector2.Distance(rb.position, target) < 0.2f)
+        if (!isSpeedBoosted && Vector2.Distance(rb.position, target) <= 0.5f)
         {
             PerformHitAnimation(direction);
             baseSpeed = 6f;
@@ -98,6 +98,6 @@ public class RockEnemy : MonoBehaviour
     {
         isSpeedBoosted = true;
         yield return new WaitForSeconds(1.5f);
-        baseSpeed = 80f;
+        baseSpeed = 50f;
     }
 }

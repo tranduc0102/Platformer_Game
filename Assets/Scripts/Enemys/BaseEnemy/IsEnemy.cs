@@ -6,5 +6,5 @@ public interface IsEnemy
 {
     void Running();
     void Attack();
-    void Dead();
+    bool Dead();
 }
