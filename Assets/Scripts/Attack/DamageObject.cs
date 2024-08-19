@@ -16,7 +16,7 @@ public class DamageObject : MonoBehaviour
 
    private void OnTriggerEnter2D(Collider2D other)
    {
-      if (other.gameObject.CompareTag(nameObject))
+      if (other.gameObject.CompareTag(nameObject) && !GameManager.Instance.isProtect)
       {
          other.gameObject.GetComponent<Animator>().SetTrigger("Hit");
          GameManager.Instance.livePlayer--;

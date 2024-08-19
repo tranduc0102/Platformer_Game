@@ -14,8 +14,6 @@ public class Player_Controller : MonoBehaviour
     public float forceJump;
     public float speed;
 
-    private bool isGravityInverted = false; // Biến để kiểm tra trạng thái trọng lực
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,6 +26,10 @@ public class Player_Controller : MonoBehaviour
         if (GameManager.Instance.livePlayer > 0)
         {   Jump();
             Running();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && GameManager.Instance.idAnimator == 1)
+        {
             transGravity();
         }
     }
@@ -133,14 +135,12 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    private void transGravity()
+    public bool isGravityInverted = false; // Biến để kiểm tra trạng thái trọng lực
+    public void transGravity()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            rb.gravityScale *= -1;
-            isGravityInverted = !isGravityInverted; // Cập nhật trạng thái trọng lực
-            Rotation();
-        }
+        rb.gravityScale *= -1;
+        isGravityInverted = !isGravityInverted; // Cập nhật trạng thái trọng lực
+        Rotation();
     }
 
     private bool trans = false;
@@ -149,13 +149,11 @@ public class Player_Controller : MonoBehaviour
     {
         if (trans == false)
         {
-            transform.eulerAngles = new Vector3(0, 0, 180);
-            spriteRenderer.flipX = true;
+            transform.eulerAngles = new Vector3(-180, 0, 0);
         }
         else
         {
             transform.eulerAngles = Vector3.zero;
-            spriteRenderer.flipX = false;
         }
 
         trans = !trans;

@@ -110,7 +110,6 @@ public class TrunkEnemy : AI_Enemy
            Debug.DrawRay(current, Vector2.left * arrangeAttack, Color.red);
        }
 
-       // Reset hitPlayer before checking for collisions
        hitPlayer = false;
        Vector2 player = default;
 
@@ -138,17 +137,15 @@ public class TrunkEnemy : AI_Enemy
            }
        }
 
-       // Only start the attack if not currently attacking
+       // bat dau tan cong
        if (!isAttacking && hitPlayer && !isBlock)
        {
            anim.SetBool("Attack", true);
            isAttacking = true;
            CanRun = false;
-
-           // Stop any existing StopAttack coroutine to prevent multiple coroutines
-           StopCoroutine(StopAttack());
+           
        }
-       // If the player is no longer hit and the character is attacking, stop the attack
+       // kiem tra va dung tan cong
        else if (isAttacking && (!hitPlayer || isBlock))
        {
            StartCoroutine(StopAttack());
@@ -156,10 +153,11 @@ public class TrunkEnemy : AI_Enemy
    }
    private IEnumerator StopAttack()
    {
-       yield return new WaitForSeconds(0.5f); // A short delay before stopping the attack
+       yield return new WaitForSeconds(0.5f); // Thời gian delay
        anim.SetBool("Attack", false);
-       isAttacking = false; // Reset attack state
-       CanRun = true; // Allow running again
+       isAttacking = false; // rest trang thai 
+       hitPlayer = false;
+       CanRun = true;
    }
 
    private bool IsBetween(Vector2 pos1, Vector2 pos2, Vector2 pos3)

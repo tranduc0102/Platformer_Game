@@ -14,19 +14,11 @@ public class ChangeAnimator : MonoBehaviour
    }
 
    private void Start()
-   { 
+   {
+      GameManager.Instance.idAnimator = 0;
       anim.runtimeAnimatorController = listAnimator[GameManager.Instance.idAnimator];
    }
-
-   private void Update()
-   {
-      if (Input.GetKeyDown(KeyCode.E))
-      {
-         Change();
-      }
-   }
-
-   void Change()
+   public void Change()
    {
       if (GameManager.Instance.idAnimator < listAnimator.Count - 1)
       {

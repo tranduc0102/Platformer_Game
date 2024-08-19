@@ -6539,6 +6539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   livePlayer: 3
   idAnimator: 0
+  isProtect: 0
 --- !u!4 &1801531840
 Transform:
   m_ObjectHideFlags: 0
@@ -7421,7 +7422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8971331452928137175, guid: 503b63af243be8747a6b2b2da8fe3276, type: 3}
       propertyPath: speedMoth
-      value: 0.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8971331452928137175, guid: 503b63af243be8747a6b2b2da8fe3276, type: 3}
       propertyPath: followSpeed

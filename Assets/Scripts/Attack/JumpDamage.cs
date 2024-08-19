@@ -48,8 +48,7 @@ public class JumpDamage : MonoBehaviour
             
             foreach (Transform child in transform)
             {
-                if(child.name != "Ground")
-                    child.gameObject.SetActive(false);
+                if(child.name != "Ground") child.gameObject.SetActive(false);
             }
         }
     }

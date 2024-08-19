@@ -20,7 +20,7 @@ public class Cannon : MonoBehaviour
     {
         Vector3 bounus = new Vector3(positionX, positionY, 0f);
         Vector2 targetPosition = target.position + bounus;
-        Bomb bomb = Instantiate(_bombPrefab, transform.position, quaternion.identity).GetComponent<Bomb>();
+        Bomb bomb = PoolingManager.Instance.Spawn(_bombPrefab, transform.position, quaternion.identity).GetComponent<Bomb>();
         bomb.Init(targetPosition, bombSpeed, maxY);
     }
 }

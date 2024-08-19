@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,10 +15,23 @@ public class PoolingManager : SingleTon<PoolingManager>
         if (GameObject.Find(poolName) == null)
         {
             parent = new GameObject(poolName);
-            DontDestroyOnLoad(parent);
         }
         // Initialize the listObject
         listObject = new List<Transform>();
+    }
+
+    private void Start()
+    {
+        if (GameObject.Find(poolName) == null)
+        {
+            parent = new GameObject(poolName);
+        }
+        else
+        {
+            parent = GameObject.Find(poolName);
+        }
+
+        parent.transform.parent = this.transform;
     }
 
     public GameObject Spawn(GameObject gameObject, Vector3 position, Quaternion quaternion)
@@ -30,23 +44,26 @@ public class PoolingManager : SingleTon<PoolingManager>
 
     public GameObject GetFormPool(GameObject obj)
     {
-        GameObject newObject;
+        GameObject newObject = null;
         foreach (var pool in listObject)
         {
-            if (pool.name == obj.name)
+            if (pool.name == obj.name && pool != null && pool.gameObject != null)
             {
                 listObject.Remove(pool);
                 newObject = pool.gameObject;
-                newObject.SetActive(true);
-                return pool.gameObject;
+                if (newObject != null && !newObject.activeInHierarchy)
+                {
+                    newObject.SetActive(true);
+                    return newObject;
+                }
             }
         }
-
         newObject = Instantiate(obj);
         newObject.name = obj.name;
         newObject.transform.parent = this.parent.transform;
         return newObject;
     }
+
 
     public void Despawn(GameObject gameObject)
     {
