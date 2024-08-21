@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    private bool checkTrigger = false;
+    protected bool checkTrigger = false;
     public virtual void Special(){}
     
 

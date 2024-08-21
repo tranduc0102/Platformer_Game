@@ -27,8 +27,7 @@ public class Player_Controller : MonoBehaviour
         {   Jump();
             Running();
         }
-
-        if (Input.GetKeyDown(KeyCode.E) && GameManager.Instance.idAnimator == 1)
+        if ((Input.GetKeyDown(KeyCode.E) && GameManager.Instance.idAnimator == 1))
         {
             transGravity();
         }
@@ -91,7 +90,7 @@ public class Player_Controller : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown("up") || Input.GetKeyDown(KeyCode.Space))
         {
             if (CheckGround.isGround)
             {
@@ -138,24 +137,31 @@ public class Player_Controller : MonoBehaviour
     public bool isGravityInverted = false; // Biến để kiểm tra trạng thái trọng lực
     public void transGravity()
     {
-        rb.gravityScale *= -1;
-        isGravityInverted = !isGravityInverted; // Cập nhật trạng thái trọng lực
-        Rotation();
+        StartCoroutine(ApplyGravityChange());
     }
 
-    private bool trans = false;
-
-    private void Rotation()
+    private IEnumerator ApplyGravityChange()
     {
-        if (trans == false)
+        anim.enabled = false; // Vô hiệu hóa Animator trước khi thay đổi rotation
+        yield return new WaitForEndOfFrame(); // Đợi đến cuối frame
+
+        if (!isGravityInverted)
         {
-            transform.eulerAngles = new Vector3(-180, 0, 0);
+            rb.gravityScale *= -1;
+            var scale = transform.localScale;
+            scale.y = -5;
+            transform.localScale = scale;
         }
         else
         {
-            transform.eulerAngles = Vector3.zero;
+            var scale = transform.localScale;
+            scale.y = 5;
+            transform.localScale = scale;
+            rb.gravityScale *= -1;
         }
-
-        trans = !trans;
+        isGravityInverted = !isGravityInverted;
+        anim.enabled = true; // Kích hoạt lại Animator
     }
+
+
 }

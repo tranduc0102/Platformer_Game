@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public int livePlayer = 3;
     public int idAnimator = 0;
     public bool isProtect = false;
-
+    public bool isKey = false;
     private void Awake()
     {
         if (Instance != null)

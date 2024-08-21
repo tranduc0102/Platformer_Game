@@ -18,6 +18,7 @@ public class ChangeAnimator : MonoBehaviour
       GameManager.Instance.idAnimator = 0;
       anim.runtimeAnimatorController = listAnimator[GameManager.Instance.idAnimator];
    }
+
    public void Change()
    {
       if (GameManager.Instance.idAnimator < listAnimator.Count - 1)

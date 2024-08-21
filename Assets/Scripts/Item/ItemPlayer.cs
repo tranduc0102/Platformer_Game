@@ -15,10 +15,11 @@ public class ItemPlayer : Item
 
     private void Start()
     {
+        gameObject.SetActive(true);
         obj = GameObject.Find("Player");
         image = GameObject.Find("Main Camera").transform.GetChild(0).transform.GetChild(3).gameObject;
     }
-
+    
     private void Update()
     {
         if (timeUnable > 0)
@@ -35,14 +36,17 @@ public class ItemPlayer : Item
 
         if (timeUnable <= 0 && check)
         {
-            obj.GetComponent<ChangeAnimator>().Change();
             this.PostEvent(EventID.OnChangePlayer,timeUnable);
-            timeUnable = 0;
+            obj.GetComponent<ChangeAnimator>().Change();
             image.SetActive(false);
             if (obj.GetComponent<Player_Controller>().isGravityInverted)
             {
                 obj.GetComponent<Player_Controller>().transGravity();
             }
+            check = false;
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            timeUnable = time;
+            checkTrigger = false;
             PoolingManager.Instance.Despawn(gameObject);
         }
     }

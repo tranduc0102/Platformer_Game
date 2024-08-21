@@ -9936,6 +9936,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1243527409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1243527411}
+  - component: {fileID: 1243527410}
+  m_Layer: 0
+  m_Name: Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1243527410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243527409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65bd4030c48d01240a388428612cd088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 0}
+  listObject: []
+--- !u!4 &1243527411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243527409}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -28.46336, y: 21.238914, z: -37.40092}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1246503475
 GameObject:
   m_ObjectHideFlags: 0
@@ -10992,6 +11037,10 @@ PrefabInstance:
     - target: {fileID: 1688573981668297493, guid: 503b63af243be8747a6b2b2da8fe3276, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973242950010942356, guid: 503b63af243be8747a6b2b2da8fe3276, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 230.70001
       objectReference: {fileID: 0}
     - target: {fileID: 5717159651558242776, guid: 503b63af243be8747a6b2b2da8fe3276, type: 3}
       propertyPath: m_LocalScale.x
@@ -15103,6 +15152,7 @@ MonoBehaviour:
   checkPoint: {fileID: 8300000, guid: 32731430e59af0f4b9521351ba3469d1, type: 3}
   coin: {fileID: 8300000, guid: 9c5ef8a5ecebf354dac025b64b736db5, type: 3}
   star: {fileID: 0}
+  bomb: {fileID: 0}
 --- !u!114 &1868074351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15117,6 +15167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   livePlayer: 3
   idAnimator: 0
+  isProtect: 0
+  isKey: 0
 --- !u!4 &1868074352
 Transform:
   m_ObjectHideFlags: 0

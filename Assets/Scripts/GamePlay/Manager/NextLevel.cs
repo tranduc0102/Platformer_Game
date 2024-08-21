@@ -18,7 +18,7 @@ public class NextLevel : MonoBehaviour
       if (other.CompareTag(namePlayer))
       {
          loadNextLevel.SetActive(true);
-         other.gameObject.GetComponent<Animator>().Play("teleport 1");
+         other.gameObject.GetComponent<Player_Controller>().enabled = false;
          Invoke("loadNext",1.3f);
       }
    }

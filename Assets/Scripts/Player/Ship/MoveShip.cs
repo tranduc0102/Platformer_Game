@@ -38,7 +38,8 @@ public class MoveShip : MonoBehaviour
         {
             isMove = true;
             playerTransform = other.gameObject.transform;
-            playerTransform.GetComponent<Player_Controller>().forceJump = 0f;
+            other.gameObject.GetComponent<Player_Controller>().speed = 0f;
+            other.gameObject.GetComponent<Player_Controller>().forceJump = 0f;
             playerTransform.SetParent(ship);
             sailAnimator.SetBool("Wind",true);
             sailAnimator.Play("Tranfer to Wind");

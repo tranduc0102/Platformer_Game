@@ -14,6 +14,7 @@ public class ItemProtect : Item
 
     private void Start()
     {
+        gameObject.SetActive(true);
         if (protectObj == null)
         {
             protectObj = GameObject.Find("Player");
@@ -27,7 +28,7 @@ public class ItemProtect : Item
 
     private void Update()
     {
-        if (timeUnable > 0)
+        if (timeUnable > 0 && check)
         {
             timeCheck += Time.deltaTime;
             if (timeCheck >= 1)
@@ -40,19 +41,22 @@ public class ItemProtect : Item
 
         if (timeUnable <= 0 && check)
         {
+            this.PostEvent(EventID.OnProtect,timeUnable);
             if (protectObj != null && protectObj.transform.GetChild(3).gameObject != null)
             {
                 protectObj.transform.GetChild(3).gameObject.SetActive(false);
                 GameManager.Instance.isProtect = false;
-                this.PostEvent(EventID.OnProtect,timeUnable);
                 timeUnable = 0;
                 image.SetActive(false);
+                check = false;
+                gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                timeUnable = time;
+                checkTrigger = false;
                 PoolingManager.Instance.Despawn(gameObject);
-                image.SetActive(false);
             }
         }
     }
-
+    
     public override void Special()
     {
         if (protectObj != null)

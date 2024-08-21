@@ -20,10 +20,9 @@ public class SpawnerItem : MonoBehaviour
     {
         if (gameObject.GetComponent<JumpDamage>().lifes <= 0 && !check)
         {
-            if (poolItem.Count > 0)
+            if (poolItem.Count > 1)
             {
                 GameObject objItem = PoolingManager.Instance.Spawn(poolItem[Random.Range(0, poolItem.Count)], transform.position, quaternion.identity);
-                
                 objItem.SetActive(true);
                 check = true;
             }
