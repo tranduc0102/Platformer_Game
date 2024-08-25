@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Enemy
   - Boat
+  - Attack
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI On Top
+    uniqueID: 295995971
     locked: 0

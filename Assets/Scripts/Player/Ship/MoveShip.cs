@@ -7,6 +7,7 @@ public class MoveShip : MonoBehaviour
     public bool isMove = false;
     public Transform ship;
     private Transform playerTransform;
+    public float speed;
     
     // Update is called once per frame
     void Update()
@@ -29,7 +30,7 @@ public class MoveShip : MonoBehaviour
             } 
             transform.Translate(new Vector2(0f, 5f * inputVertical * Time.deltaTime));   
         }
-        transform.Translate(new Vector2(4f * Time.deltaTime, 0f));
+        transform.Translate(new Vector2(speed * Time.deltaTime, 0f));
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -38,8 +39,7 @@ public class MoveShip : MonoBehaviour
         {
             isMove = true;
             playerTransform = other.gameObject.transform;
-            other.gameObject.GetComponent<Player_Controller>().speed = 0f;
-            other.gameObject.GetComponent<Player_Controller>().forceJump = 0f;
+            other.gameObject.GetComponent<Player_Controller>().enabled = false;
             playerTransform.SetParent(ship);
             sailAnimator.SetBool("Wind",true);
             sailAnimator.Play("Tranfer to Wind");

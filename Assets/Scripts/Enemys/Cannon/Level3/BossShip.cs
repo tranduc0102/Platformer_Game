@@ -40,6 +40,7 @@ public class BossShip : MonoBehaviour
         if (playerTransform.position.x >= 80f && !isAdvent)
         {
             isAdvent = true;
+            Debug.Log(isAdvent);
         }
         
         if (isAdvent && transform.position.x - playerTransform.position.x <= 14.8f)
